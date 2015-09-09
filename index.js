@@ -3,8 +3,8 @@ var client = require('twilio')('AC06255c7484e75adfd67e8f16c75e10b7', 'ffe2828721
 var http = require("http");
 var express = require('express');
 var app = express();
-// var path = require('path');
-// var fs = require('fs');
+var path = require('path');
+var fs = require('fs');
 
 //file dependencies
 //var entries = require('./data.js');
@@ -30,9 +30,9 @@ app.post('/newtodo', function(res, req){
   // send back twimil
      // Create a TwiML response
     console.log('---------------------------------');
-    console.log(req.body);
+    console.log(req);
     console.log('---------------------------------');
-    console.log(res.body);
+    console.log(res);
       
   //   res = new twilio.TwimlResponse();
 
