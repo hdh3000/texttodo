@@ -1,8 +1,7 @@
 var path = require('path');
 var fs = require('fs');
 
-
-entriesPath = path.join(__dirname,'./data.txt')
+entriesPath = path.join(__dirname,'./data.txt');
 var entries = [];
 var entryID = null;
 
