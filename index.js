@@ -33,7 +33,7 @@ app.post('/newtodo', function(res, req){
     console.log('---------------------------------');
     console.log(req.body);
     console.log('---------------------------------');
-    console.log(urlParser.parse(req.url));
+    console.log(req.url);
       
   //   res = new twilio.TwimlResponse();
 
