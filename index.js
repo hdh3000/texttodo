@@ -27,8 +27,9 @@ app.use(function(request, response, next) {
 
 //adds a new to do
 app.post('/newtodo', function(response, request){
+  console.log(response.body.toString());
   console.dir(request.headers);
-  console.dir(######);
+  console.dir('######');
   console.dir(response.headers);
 });
 
