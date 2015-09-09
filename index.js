@@ -5,6 +5,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var fs = require('fs');
+var urlParser = require('url');
 
 //file dependencies
 //var entries = require('./data.js');
@@ -30,9 +31,9 @@ app.post('/newtodo', function(res, req){
   // send back twimil
      // Create a TwiML response
     console.log('---------------------------------');
-    console.log(req);
+    console.log(req.body);
     console.log('---------------------------------');
-    console.log(res);
+    console.log(urlParser.parse(req.url));
       
   //   res = new twilio.TwimlResponse();
 
