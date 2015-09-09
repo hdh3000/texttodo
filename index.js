@@ -30,13 +30,17 @@ app.use(function(request, response, next) {
 app.post('/newtodo', function(req, res){
   // send back twimil
      // Create a TwiML response
+    res.send('thanks!');
+
     console.log('---------------------------------');
     console.log(req.body);
-    console.log(req.body.Body);
-    console.log(req.body.body);
-    console.log(req.body.params);
+    // console.log(req.body.Body);
+    // console.log(req.body.body);
+    // console.log(req.body.params);
     console.log('---------------------------------');
     console.log(urlParser.parse(req.url));
+
+    
       
   //   res = new twilio.TwimlResponse();
 
