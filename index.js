@@ -28,15 +28,15 @@ app.use(function(request, response, next) {
   next();
 });
 
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+//app.use(bodyParser.json()); // for parsing application/json
+//app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(multer()); // for parsing multipart/form-data
 
 
 app.post('/newtodo', function(req, res){
   // send back twimil
      // Create a TwiML response
-    res.send('thanks!');
+    //res.send('thanks!');
 
     console.log('---------------------------------');
     console.log(req.body);
