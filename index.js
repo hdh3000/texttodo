@@ -28,9 +28,15 @@ app.use(function(request, response, next) {
 //adds a new to do
 app.post('/newtodo', function(response, request){
   //console.log(response.body.toString());
-  console.dir(request.headers);
-  console.dir('----------------------------------------------');
-  console.dir(response.headers);
+  respons.on('end', function() {
+    console.log('----------------------')
+    console.dir(response.headers)
+    console.log('----------------------')
+    console.dir(response.toString())
+    console.log('----------------------')
+    console.dir(response.body)
+    console.log('----------------------')
+    console.dir(response.body.toString())});
 });
 
 //returns a to do
