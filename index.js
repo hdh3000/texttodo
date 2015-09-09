@@ -17,7 +17,7 @@ var app = express()
 var port = process.env.PORT || 5000;
 var ip = process.env.IP || "127.0.0.1";
 
-
+//dealing with cors
 app.use(function(request, response, next) {
   response.header("Access-Control-Allow-Origin", "*");
   response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -27,28 +27,21 @@ app.use(function(request, response, next) {
 
 //adds a new to do
 app.post('/newtodo', function(response, request){
-  client.sendMessage({
-    to:'+16129108918', // Any number Twilio can deliver to
-    from: '+17639511825', // A number you bought from Twilio and can use for outbound communication
-    body: 'yooooooooo.' // body of the SMS message
-    }, function(err, responseData) { //this function is executed when a response is received from Twilio
-      if (err) { // "err" is an error received during the request, if any
-        console.log(err);
-    }
-  });
-
+  console.dir(request);
 });
 
 //returns a to do
 app.get('/tobedone', function(response, request){
+  
   client.sendMessage({
-    to:'+16129108918', // Any number Twilio can deliver to
-    from: '+17639511825', // A number you bought from Twilio and can use for outbound communication
-    body: 'word to your mother.' // body of the SMS message
-    }, function(err, responseData) { //this function is executed when a response is received from Twilio
-      if (err) { // "err" is an error received during the request, if any
+    to:'+16129108918',
+    from: '+17639511825', 
+    body: 'word to your mother.' 
+    }, function(err, responseData) { 
+      if (err) {
         console.log(err);
     }
+
   });
 
   //user requests a to do
