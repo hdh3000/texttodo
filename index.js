@@ -6,6 +6,8 @@ var app = express();
 var path = require('path');
 var fs = require('fs');
 var urlParser = require('url');
+var bodyParser = require('body-parser');
+var multer = require('multer'); 
 
 //file dependencies
 //var entries = require('./data.js');
@@ -26,6 +28,10 @@ app.use(function(request, response, next) {
   next();
 });
 
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(multer()); // for parsing multipart/form-data
+
 
 app.post('/newtodo', function(req, res){
   // send back twimil
@@ -34,13 +40,14 @@ app.post('/newtodo', function(req, res){
 
     console.log('---------------------------------');
     console.log(req.body);
+
     // console.log(req.body.Body);
     // console.log(req.body.body);
     // console.log(req.body.params);
     console.log('---------------------------------');
     console.log(urlParser.parse(req.url));
 
-    
+
       
   //   res = new twilio.TwimlResponse();
 
