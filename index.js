@@ -26,7 +26,7 @@ app.use(function(request, response, next) {
 });
 
 
-app.post('/newtodo', function(res, req){
+app.post('/newtodo', function(req, res){
   // send back twimil
      // Create a TwiML response
     console.log('---------------------------------');
@@ -54,7 +54,7 @@ app.post('/newtodo', function(res, req){
 
 
 //returns a to do
-app.get('/tobedone', function(response, request){
+app.get('/tobedone', function(request, response){
   client.sendMessage({
     to:'+16129108918',
     from: '+17639511825', 
