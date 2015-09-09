@@ -1,8 +1,8 @@
 //intial package dependencies
-var client = require('twilio')('AC06255c7484e75adfd67e8f16c75e10b7', 'ffe28287216b494c5bf75db75c1439aa')
+var client = require('twilio')('AC06255c7484e75adfd67e8f16c75e10b7', 'ffe28287216b494c5bf75db75c1439aa');
 var http = require("http");
 var express = require('express');
-var app = express()
+var app = express();
 // var path = require('path');
 // var fs = require('fs');
 
@@ -20,28 +20,39 @@ var ip = process.env.IP || "127.0.0.1";
 //dealing with cors
 app.use(function(request, response, next) {
   response.header("Access-Control-Allow-Origin", "*");
-  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  response.header("Access-Control-Allow-Headers", 
+    "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
 
-//adds a new to do
-app.post('/newtodo', function(response, request){
-  //console.log(response.body.toString());
-  response.on('end', function() {
-    console.log('----------------------')
-    console.dir(response.headers)
-    console.log('----------------------')
-    console.dir(response.toString())
-    console.log('----------------------')
-    console.dir(response.body)
-    console.log('----------------------')
-    console.dir(response.body.toString())});
+app.post('/newtodo', function(res, req){
+  // send back twimil
+     // Create a TwiML response
+    console.log('---------------------------------');
+    console.log(req.body.Body);
+      
+  //   res = new twilio.TwimlResponse();
+
+  //   res.say({voice:'woman'}, 'ahoy hoy! Testing Twilio and node.js');
+    
+  //   //write a status header
+  //   res.writeHead(200, {
+  //       'Content-Type':'text/xml'
+  //   });
+
+  //   //Render the TwiML document using "toString"
+  //   res.end(res.toString());
+
+  // //
+
 });
+
+
+
 
 //returns a to do
 app.get('/tobedone', function(response, request){
-  
   client.sendMessage({
     to:'+16129108918',
     from: '+17639511825', 
@@ -52,13 +63,6 @@ app.get('/tobedone', function(response, request){
     }
 
   });
-
-  //user requests a to do
-
-  //goes to db and loads latest to-do
-
-  //responswith that todo
-
 });
 
 //removes a done to-do
