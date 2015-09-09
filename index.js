@@ -5,7 +5,6 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var fs = require('fs');
-var urlParser = require('url');
 
 //file dependencies
 //var entries = require('./data.js');
