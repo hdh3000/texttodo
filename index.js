@@ -6,8 +6,8 @@ var app = express();
 var path = require('path');
 var fs = require('fs');
 var urlParser = require('url');
-var bodyParser = require('body-parser');
-var multer = require('multer'); 
+// var bodyParser = require('body-parser');
+// var multer = require('multer'); 
 
 //file dependencies
 //var entries = require('./data.js');
@@ -28,7 +28,6 @@ app.use(function(request, response, next) {
   next();
 });
 
-
 app.post('/newtodo', function(req, res){
   buffer = "";
   req.on('data', function(data){
@@ -37,7 +36,7 @@ app.post('/newtodo', function(req, res){
 
   req.on('end', function(){
     console.log(buffer);
-    console.log(JSON.parse());
+    console.log(JSON.parse(buffer));
   });
 });
 
