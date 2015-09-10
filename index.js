@@ -41,10 +41,14 @@ app.post('/', function(req, res){
       if(command.cmd === qx){
         //command object will hold which list to post to
         //command object will hold what to do.
+        //data actions
+        //write response
 
       } else if (command.cmd === qt){
 
+
       } else if (command.cmd === qn){
+
 
       } else {
         //somescript to write "dont recognize command / number"
