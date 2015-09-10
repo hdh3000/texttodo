@@ -5,17 +5,14 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var fs = require('fs');
-var urlParser = require('url');
 var queryString = require('querystring');
-// var bodyParser = require('body-parser');
-// var multer = require('multer'); 
+
 
 //file dependencies
 //var entries = require('./data.js');
 
 //get data on load
 //entries.initialize();
-
 
 //module variables for server config
 var port = process.env.PORT || 5000;
@@ -29,40 +26,27 @@ app.use(function(request, response, next) {
   next();
 });
 
-app.post('/newtodo', function(req, res){
+app.post('/', function(req, res){
   buffer = "";
   req.on('data', function(data){
     buffer = buffer + data.toString();
   });
 
   req.on('end', function(){
-    console.log(buffer);
-    console.log(queryString.parse(buffer));
-  });
-});
-
-
-//returns a to do
-app.get('/tobedone', function(request, response){
-  client.sendMessage({
-    to:'+16129108918',
-    from: '+17639511825', 
-    body: 'word to your mother.' 
-    }, function(err, responseData) { 
-      if (err) {
-        console.log(err);
+    //console.log(buffer);
+    //console.log(queryString.parse(buffer));
+    var message = queryString.parse(buffer);
+    if(message.From === '+16129108918'){
+      // TO-DO decide on modularity
+    } else {
+      //some code to return not authrorized
     }
 
+
+
+
   });
-});
 
-//removes a done to-do
-app.post('/tobedone', function(response, request){
-  //users posts a to do is done
-
-  //goes to db and pops to do
-
-  //returns message including done to do
 
 
 });
