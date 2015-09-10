@@ -6,6 +6,7 @@ var app = express();
 var path = require('path');
 var fs = require('fs');
 var urlParser = require('url');
+var queryString = ('querystring');
 // var bodyParser = require('body-parser');
 // var multer = require('multer'); 
 
@@ -36,7 +37,7 @@ app.post('/newtodo', function(req, res){
 
   req.on('end', function(){
     console.log(buffer);
-    console.log(JSON.parse(buffer));
+    console.log(queryString.parse(buffer));
   });
 });
 
