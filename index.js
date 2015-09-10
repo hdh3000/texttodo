@@ -28,41 +28,17 @@ app.use(function(request, response, next) {
   next();
 });
 
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(multer()); // for parsing multipart/form-data
-
 
 app.post('/newtodo', function(req, res){
-  // send back twimil
-     // Create a TwiML response
-    //res.send('thanks!');
+  buffer = "";
+  req.on('data', function(data){
+    buffer = buffer + data.toString();
+  });
 
-    console.log('---------------------------------');
-    console.log(req.body);
-
-    // console.log(req.body.Body);
-    // console.log(req.body.body);
-    // console.log(req.body.params);
-    console.log('---------------------------------');
-    console.log(urlParser.parse(req.url));
-
-
-      
-  //   res = new twilio.TwimlResponse();
-
-  //   res.say({voice:'woman'}, 'ahoy hoy! Testing Twilio and node.js');
-    
-  //   //write a status header
-  //   res.writeHead(200, {
-  //       'Content-Type':'text/xml'
-  //   });
-
-  //   //Render the TwiML document using "toString"
-  //   res.end(res.toString());
-
-  // //
-
+  req.on('end', function(){
+    console.log(buffer);
+    console.log(JSON.parse());
+  });
 });
 
 
