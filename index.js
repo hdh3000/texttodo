@@ -6,6 +6,7 @@ var app = express();
 var path = require('path');
 var fs = require('fs');
 var queryString = require('querystring');
+var cmd = 'some-file';
 
 
 //file dependencies
@@ -28,26 +29,28 @@ app.use(function(request, response, next) {
 
 app.post('/', function(req, res){
   buffer = "";
+  
   req.on('data', function(data){
     buffer = buffer + data.toString();
   });
 
   req.on('end', function(){
-    //console.log(buffer);
-    //console.log(queryString.parse(buffer));
     var message = queryString.parse(buffer);
-    if(message.From === '+16129108918'){
-      // TO-DO decide on modularity
-    } else {
-      //some code to return not authrorized
-    }
+      command = cmd.read(message);
 
+      if(command.cmd === qx){
+        //command object will hold which list to post to
+        //command object will hold what to do.
 
+      } else if (command.cmd === qt){
 
+      } else if (command.cmd === qn){
+
+      } else {
+        //somescript to write "dont recognize command / number"
+      }
 
   });
-
-
 
 });
 
