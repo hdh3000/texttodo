@@ -6,7 +6,7 @@ var app = express();
 var path = require('path');
 var fs = require('fs');
 var urlParser = require('url');
-var queryString = ('querystring');
+var queryString = require('querystring');
 // var bodyParser = require('body-parser');
 // var multer = require('multer'); 
 
