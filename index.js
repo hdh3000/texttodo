@@ -43,7 +43,7 @@ app.post('/', function(req, res){
       message.cmd = cmdHelpers.read(message);
       message.Body = cmdHelpers.removecmd(message.Body);
 
-      if(!!(postHelpers.From[From]).indexOf(message.To)){
+      if(!!(postHelpers.From[message.From]).indexOf(message.To)){
         console.log('made it through screen');
         if(message.cmd === "qn") {
           console.log("processed command");

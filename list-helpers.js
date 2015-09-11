@@ -5,9 +5,9 @@ path = require('path');
 // 	"+17639511825": []
 // };
 
-dataFile = path.join(__dirname, './todolists');
+dataFile = path.join(__dirname, './todolists/');
 
-var addToTDList = function(td, number, resp){
+var addToTDList = function(td, number){
 	var path = filepath + number;
 	fs.readFile(path, function(err, content) {
 		if (err) throw err;
