@@ -7,7 +7,7 @@ var pairs = {
 
 var canPost = function(from, to){
 	var index = (pairs[from]).indexOf(to);
-	return indexOf !== -1;
+	return index !== -1;
 };
 
 exports.canPost = canPost;
