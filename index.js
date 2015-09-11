@@ -8,7 +8,8 @@ var fs = require('fs');
 var queryString = require('querystring');
 
 var cmdHelpers = require('/cmd-helpers.js');
-var postHelper = require('/post-helpers.js');
+var postHelpers = require('/post-helpers.js');
+var listHelpers = require('/list-helpers.js');
 
 
 //file dependencies
@@ -40,9 +41,11 @@ app.post('/', function(req, res){
     var message = queryString.parse(buffer);
       message.cmd = cmdHelpers.read(message);
 
-      if(!!postHelper[From].indexOf(message.To)){
+      if(!!(postHelpers.From[From]).indexOf(message.To)){
         if(message.cmd === "qn") {
-          
+          listHelpers.load(function(dataBase){
+
+          });
           //command object will hold what to do.
           //data actions
           //write response
