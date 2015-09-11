@@ -6,7 +6,9 @@ var app = express();
 var path = require('path');
 var fs = require('fs');
 var queryString = require('querystring');
-var cmd = 'some-file';
+
+var cmdHelpers = require('/cmd-helpers.js');
+var postHelper = require('/post-helpers.js');
 
 
 //file dependencies
@@ -36,24 +38,25 @@ app.post('/', function(req, res){
 
   req.on('end', function(){
     var message = queryString.parse(buffer);
-      command = cmd.read(message);
+      message.cmd = cmdHelpers.read(message);
 
-      if(command.cmd === qx){
-        //command object will hold which list to post to
-        //command object will hold what to do.
-        //data actions
-        //write response
+      if(!!postHelper[From].indexOf(message.To)){
+        if(message.cmd === "qn") {
+          
+          //command object will hold what to do.
+          //data actions
+          //write response
 
-      } else if (command.cmd === qt){
-
-
-      } else if (command.cmd === qn){
+        } else if (message.cmd === "qt") {
 
 
+        } else if (message.cmd === "qx") {
+
+
+        }
       } else {
-        //somescript to write "dont recognize command / number"
+        //some script about how it wont work
       }
-
   });
 
 });
