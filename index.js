@@ -30,7 +30,7 @@ app.use(function(request, response, next) {
   next();
 });
 
-app.post('/', function(req, res){
+app.post('/', function(req, resp){
   buffer = "";
   
   req.on('data', function(data){
