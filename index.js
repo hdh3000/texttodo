@@ -39,6 +39,7 @@ app.post('/', function(req, res){
 
   req.on('end', function(){
     var message = queryString.parse(buffer);
+      console.log(message);
       message.cmd = cmdHelpers.read(message);
       message.Body = cmdHelpers.removecmd(message.Body);
 

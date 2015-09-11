@@ -6,13 +6,13 @@ var qnTest = /^qn/;
 var read = function(message){
   var Body = message.Body;
   //commands in abc order
-  if(qnTest.test(body)) {
+  if(qnTest.test(Body)) {
     return "qn";
 
-  } else if(qtTest.Test(body)) {
+  } else if(qtTest.Test(Body)) {
     return "qt";
 
-  } else if(qxTest.Test(body)) {
+  } else if(qxTest.Test(Body)) {
     return "qx";
     
   } else {
