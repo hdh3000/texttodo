@@ -5,10 +5,10 @@ path = require('path');
 // 	"+17639511825": []
 // };
 
-dataFile = path.join(__dirname, './todolists/');
+filePath = path.join(__dirname, './todolists/');
 
 var addToTDList = function(td, number){
-	var path = filepath + number;
+	var path = filePath + number;
 	fs.readFile(path, function(err, content) {
 		if (err) throw err;
 		else {
