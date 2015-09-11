@@ -33,7 +33,7 @@ app.get('/', function(req, resp){
 
 //handling posts
 app.post('/', parser, function(req, resp){
-    var msg = utils.parseMessage(req.query);
+    var msg = utils.parseMessage(req.body);
     console.log(msg); 
   }
 

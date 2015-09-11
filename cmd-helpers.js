@@ -3,7 +3,8 @@ var queryString = require('querystring');
 var commands = /^qn|^qt|^qx/i; // regexp which contains all command statements
 
 var parseCmd = function(message){
-  return message.match(commands)[0].toLowerCase();
+  var cmd = message.match(commands)[0].toLowerCase();
+  return cmd || 'qn';
 };
 
 var removeCmd = function(string){
