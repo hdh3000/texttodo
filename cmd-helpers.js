@@ -1,32 +1,25 @@
-var qxTest = /^qx/;
-var qtTest = /^qt/;
-var qnTest = /^qn/;
+var queryString = require('querystring');
 
+var commands = /^qn|^qt|^qx/i; // regexp which contains all command statements
 
-var read = function(message){
-  var Body = message.Body;
-  //commands in abc order
-  if(qnTest.test(Body)) {
-    return "qn";
-
-  } else if(qtTest.test(Body)) {
-    return "qt";
-
-  } else if(qxTest.test(Body)) {
-    return "qx";
-    
-  } else {
-    //defaults to adding a new to-do if no command is given
-    return "qn"; 
-  }
-
+var parseCmd = function(message){
+  return message.match(commands)[0].toLowerCase();
 };
 
-var removecmd = function(item){
-  //TO-DO implement to strip command phrase off...
-  return item;
+var removeCmd = function(string){
+  string = string.replace(commands, ''); // removes command text
+  string = string.replace(/^\s/, ''); //removes leading whitespace
+  return string;
 };
 
 
-exports.read = read;
-exports.removecmd = removecmd;
+var parseMessage = function (body){
+  body.cmd = parseCmd(body.Body);
+  body.Body = removeCmd(body.Body);
+  return body;
+};
+
+
+// exports.parseCmd = parseCmd;
+// exports.removeCmd = removeCmd;
+exports.parseMessage = parseMessage;

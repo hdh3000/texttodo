@@ -4,8 +4,8 @@
   "main": "server/basic-server.js",
   "author": "Henry Hutcheson",
   "license": "Copyright 2015, Henry Hutcheson. All rights reserved.",
-  
   "dependencies": {
+    "body-parser": "^1.13.3",
     "express": "^4.13.3",
     "twilio": "*"
   }

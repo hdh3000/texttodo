@@ -1,26 +1,21 @@
 //intial package dependencies
-var client = require('twilio')('AC06255c7484e75adfd67e8f16c75e10b7', 'ffe28287216b494c5bf75db75c1439aa');
 var http = require("http");
-var express = require('express');
-var app = express();
 var path = require('path');
 var fs = require('fs');
-var queryString = require('querystring');
+var bodyParser = require('body-parser');
 
-var cmdHelpers = require('./cmd-helpers.js');
-var postHelpers = require('./post-helpers.js');
+var app = require('express')();
+var client = require('twilio')('AC06255c7484e75adfd67e8f16c75e10b7', 'ffe28287216b494c5bf75db75c1439aa');
+
+var utils = require('./cmd-helpers.js');
+var auth = require('./post-helpers.js');
 var listHelpers = require('./list-helpers.js');
-
-
-//file dependencies
-//var entries = require('./data.js');
-
-//get data on load
-//entries.initialize();
 
 //module variables for server config
 var port = process.env.PORT || 5000;
 var ip = process.env.IP || "127.0.0.1";
+
+var parser = bodyParser.urlencoded({ extended: false }); // false uses querystring library..
 
 //dealing with cors
 app.use(function(request, response, next) {
@@ -30,41 +25,34 @@ app.use(function(request, response, next) {
   next();
 });
 
-app.post('/', function(req, resp){
-  buffer = "";
-  
-  req.on('data', function(data){
-    buffer = buffer + data.toString();
-  });
-
-  req.on('end', function(){
-    var message = queryString.parse(buffer);
-      var list = message.To;
-      console.log(message);
-
-      message.cmd = cmdHelpers.read(message);
-      message.Body = cmdHelpers.removecmd(message.Body);
-
-      // if(!!(postHelpers.From[message.From]).indexOf(message.To)){
-        console.log('made it through screen');
-        if(message.cmd === "qn") {
-          listHelpers.addToTDList(message.Body, list);
-          resp.end();
-
-        } else if (message.cmd === "qt") {
-          listHelpers.getToDo(list);
-          resp.end();
-
-        } else if (message.cmd === "qx") {
-
-        }
-
-      // } else {
-        //some script about how it wont work
-      // }
-  });
-
+//handling get
+app.get('/', function(req, resp){
+  resp.write('working on it');
+  resp.end();
 });
+
+//handling posts
+app.post('/', urlencodedParser, function(req, resp){
+    var msg = utils.parseMessage(req.body);
+    console.log(msg); }
+
+  //     if(auth.canPost(msg.From, msg.To)) {
+
+  //       if(msg.cmd === "qn") {
+
+  //       } else if (msg.cmd === "qt") {
+
+  //       } else if (msg.cmd === "qx") {
+
+  //       }
+
+  //     } else {
+  //       resp.write("you cant post to this list");
+  //       resp.end();
+  //     }
+  // }
+
+);
 
 
 //basic server setup for http
@@ -102,6 +90,13 @@ var server = app.listen(port, function () {
 
 
 
+  // buffer = "";
+  
+  // req.on('data', function(data){
+  //   buffer = buffer + data.toString();
+  // });
+
+  // req.on('end', function(){
 
 
 

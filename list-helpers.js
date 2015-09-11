@@ -45,7 +45,7 @@ var getToDo = function (list){
 
 
 
-
+exports.getToDo = getToDo;
 exports.addToTDList = addToTDList;
 
 
