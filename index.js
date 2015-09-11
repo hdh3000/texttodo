@@ -1,21 +1,23 @@
+var client = require('twilio')('AC06255c7484e75adfd67e8f16c75e10b7', 'ffe28287216b494c5bf75db75c1439aa');
+var app = require('express')();
+
 //intial package dependencies
 var http = require("http");
 var path = require('path');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 
-var app = require('express')();
-var client = require('twilio')('AC06255c7484e75adfd67e8f16c75e10b7', 'ffe28287216b494c5bf75db75c1439aa');
 
 var utils = require('./cmd-helpers.js');
 var auth = require('./post-helpers.js');
 var listHelpers = require('./list-helpers.js');
 
+
 //module variables for server config
 var port = process.env.PORT || 5000;
 var ip = process.env.IP || "127.0.0.1";
 
-var parser = bodyParser.urlencoded({ extended: false }); // false uses querystring library..
+var parser = bodyParser.urlencoded({ extended: false }); // false uses querystring library
 
 //dealing with cors
 app.use(function(request, response, next) {
@@ -34,8 +36,7 @@ app.get('/', function(req, resp){
 //handling posts
 app.post('/', parser, function(req, resp){
     var msg = utils.parseMessage(req.body);
-    console.log(msg); 
-  }
+    console.log(auth.canPost(msg.From, msg.To));
 
   //     if(auth.canPost(msg.From, msg.To)) {
 
@@ -52,6 +53,7 @@ app.post('/', parser, function(req, resp){
   //       resp.end();
   //     }
   // }
+  }
 
 );
 
