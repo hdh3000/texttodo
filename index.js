@@ -32,9 +32,10 @@ app.get('/', function(req, resp){
 });
 
 //handling posts
-app.post('/', urlencodedParser, function(req, resp){
+app.post('/', parser, function(req, resp){
     var msg = utils.parseMessage(req.body);
-    console.log(msg); }
+    console.log(msg); 
+  }
 
   //     if(auth.canPost(msg.From, msg.To)) {
 
