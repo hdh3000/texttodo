@@ -1,17 +1,27 @@
 fs = require('fs');
+path = require('path');
 
 var tdLists = {
 	"+17639511825": []
 };
 
-dataFile = 'some-path';
+dataFile = path.join(__dirname, './todolists');
 
-var loadTdList = function(callback){
-	fs.readFile(filepath, function(err, content){
+var addToTDList = function(td, number, resp){
+	var path = filepath + number;
+	fs.readFile(path, function(err, content) {
 		if (err) throw err;
-		callback(content);
+		else {
+			var list = JSON.parse(content);
+			list.push(td);
+			fs.writeFile(path, JSON.stringify(list), function(err){
+				if(err) throw err;
+				console.log('added to list', number);
+			}); 
+		}
 	});
 };
+
 
 
 

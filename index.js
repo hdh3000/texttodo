@@ -40,23 +40,21 @@ app.post('/', function(req, res){
   req.on('end', function(){
     var message = queryString.parse(buffer);
       message.cmd = cmdHelpers.read(message);
+      message.Body = cmdHelpers.removecmd(message.Body);
 
       if(!!(postHelpers.From[From]).indexOf(message.To)){
+        console.log('made it through screen');
         if(message.cmd === "qn") {
-          listHelpers.load(function(dataBase){
-
-          });
-          //command object will hold what to do.
-          //data actions
-          //write response
+          console.log("processed command");
+          listHelpers.addToTDList(message.Body, message.To);
+          resp.end();
 
         } else if (message.cmd === "qt") {
 
-
         } else if (message.cmd === "qx") {
 
-
         }
+
       } else {
         //some script about how it wont work
       }

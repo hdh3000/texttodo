@@ -22,9 +22,11 @@ var read = function(message){
 
 };
 
-
-
-
+var removecmd = function(item){
+  //TO-DO implement to strip command phrase off...
+  return item;
+};
 
 
 exports.read = read;
+exports.removecmd = removecmd;
