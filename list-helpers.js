@@ -8,7 +8,7 @@ path = require('path');
 filePath = path.join(__dirname, './todolists/');
 
 var addToTDList = function(td, number){
-	var path = filePath + number;
+	var path = filePath + number + '.json';
 	fs.readFile(path, function(err, content) {
 		if (err) throw err;
 		else {
