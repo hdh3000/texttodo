@@ -5,7 +5,8 @@ var qnTest = /^qn/;
 
 var read = function(message){
   var Body = message.Body;
-  if(qnTest.Test(body)){
+  if(qnTest.test(body) || !qtT.test(body) && !qxT.test(body)) {
+  	
 
   } else if(qtTest.Test(body)) {
 
