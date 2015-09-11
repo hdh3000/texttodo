@@ -39,18 +39,21 @@ app.post('/', function(req, resp){
 
   req.on('end', function(){
     var message = queryString.parse(buffer);
+      var list = message.To;
       console.log(message);
+
       message.cmd = cmdHelpers.read(message);
       message.Body = cmdHelpers.removecmd(message.Body);
 
       // if(!!(postHelpers.From[message.From]).indexOf(message.To)){
         console.log('made it through screen');
         if(message.cmd === "qn") {
-          console.log("processed command");
-          listHelpers.addToTDList(message.Body, message.To);
+          listHelpers.addToTDList(message.Body, list);
           resp.end();
 
         } else if (message.cmd === "qt") {
+          listHelpers.getToDo(list);
+          resp.end();
 
         } else if (message.cmd === "qx") {
 
