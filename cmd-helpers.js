@@ -9,10 +9,10 @@ var read = function(message){
   if(qnTest.test(Body)) {
     return "qn";
 
-  } else if(qtTest.Test(Body)) {
+  } else if(qtTest.test(Body)) {
     return "qt";
 
-  } else if(qxTest.Test(Body)) {
+  } else if(qxTest.test(Body)) {
     return "qx";
     
   } else {
