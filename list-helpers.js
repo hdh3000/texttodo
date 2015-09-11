@@ -1,9 +1,9 @@
 fs = require('fs');
 path = require('path');
 
-var tdLists = {
-	"+17639511825": []
-};
+// var tdLists = {
+// 	"+17639511825": []
+// };
 
 dataFile = path.join(__dirname, './todolists');
 
@@ -21,6 +21,8 @@ var addToTDList = function(td, number, resp){
 		}
 	});
 };
+
+exports.addToTDList = addToTDList;
 
 
 

@@ -7,9 +7,9 @@ var path = require('path');
 var fs = require('fs');
 var queryString = require('querystring');
 
-var cmdHelpers = require('/cmd-helpers.js');
-var postHelpers = require('/post-helpers.js');
-var listHelpers = require('/list-helpers.js');
+var cmdHelpers = require('./cmd-helpers.js');
+var postHelpers = require('./post-helpers.js');
+var listHelpers = require('./list-helpers.js');
 
 
 //file dependencies
