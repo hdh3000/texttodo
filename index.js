@@ -1,31 +1,34 @@
-var client = require('twilio')('AC06255c7484e75adfd67e8f16c75e10b7', 'ffe28287216b494c5bf75db75c1439aa');
-var app = require('express')();
-
 //intial package dependencies
 var http = require("http");
-var path = require('path');
 var fs = require('fs');
 var bodyParser = require('body-parser');
-
-
-var utils = require('./cmd-helpers.js');
-var auth = require('./post-helpers.js');
+var client = require('twilio')(
+    'AC06255c7484e75adfd67e8f16c75e10b7',
+    'ffe28287216b494c5bf75db75c1439aa');
+var app = require('express')();
+var utils = require('./utils.js');
+var auth = require('./auth.js');
 var listHelpers = require('./list-helpers.js');
 
-
-//module variables for server config
 var port = process.env.PORT || 5000;
 var ip = process.env.IP || "127.0.0.1";
+var parser = bodyParser.urlencoded({ extended: false });
 
-var parser = bodyParser.urlencoded({ extended: false }); // false uses querystring library
+var cmdResponses = {
+  "qn": 'func',
+  "qt": 'func',
+  "qx": 'func'
+};
 
-//dealing with cors
-app.use(function(request, response, next) {
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header("Access-Control-Allow-Headers", 
-    "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
+
+// //dealing with cors
+// app.use(function(request, response, next) {
+//   response.header("Access-Control-Allow-Origin", "*");
+//   response.header("Access-Control-Allow-Headers", 
+//     "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 //handling get
 app.get('/', function(req, resp){
@@ -36,35 +39,26 @@ app.get('/', function(req, resp){
 //handling posts
 app.post('/', parser, function(req, resp){
     var msg = utils.parseMessage(req.body);
-    console.log(auth.canPost(msg.From, msg.To));
-
-  //     if(auth.canPost(msg.From, msg.To)) {
-
-  //       if(msg.cmd === "qn") {
-
-  //       } else if (msg.cmd === "qt") {
-
-  //       } else if (msg.cmd === "qx") {
-
-  //       }
-
-  //     } else {
-  //       resp.write("you cant post to this list");
-  //       resp.end();
-  //     }
-  // }
-  }
-
+    if(auth.canPost(msg.From, msg.To)) {
+      cmdResponses[msg.cmd](req, resp);
+      }
+    }
 );
-
 
 //basic server setup for http
 var server = app.listen(port, function () {
   var host = ip;
   var port = server.address().port;
-
   console.log('Example app listening at http://%s:%s', host, port);
 });
+
+
+
+
+
+
+
+
 
 
 // 2015-09-10T05:16:40.055691+00:00 app[web.1]:   ToState: 'MN',
