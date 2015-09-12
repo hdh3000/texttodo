@@ -14,20 +14,16 @@ var port = process.env.PORT || 5000;
 var ip = process.env.IP || "127.0.0.1";
 var parser = bodyParser.urlencoded({ extended: false });
 
-var cmdResponses = {
-  "qn": 'func(req, resp)',
-  "qt": 'func(req, resp)',
-  "qx": 'func(req, resp)'
-};
+var db = require('./models')
 
-// var pg = require('pg');
-// var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
+app.set('port', process.env.PORT || 3000);
 
-// var client = new pg.Client(connectionString);
-// client.connect();
-// var query = client.query('CREATE TABLE items(id SERIAL PRIMARY KEY, text VARCHAR(40) not null, complete BOOLEAN)');
-// query.on('end', function() { client.end(); });
 
+// db.sequelize.sync().then(function() {
+//   http.createServer(app).listen(app.get('port'), function(){
+//     console.log('Express server listening on port ' + app.get('port'));
+//   });
+// });
 
 
 //handling get
@@ -41,9 +37,9 @@ app.post('/', parser, function(req, resp){
     console.log(req);
     console.log(req.body);
     var msg = utils.parseMessage(req.body);
-    // if(auth.canPost(msg.From, msg.To)) {
-      // cmdResponses[msg.cmd](req, resp);
-      // }
+    if(auth.canPost(msg.From, msg.To)) {
+      cmdResponses[msg.cmd](req, resp);
+      }
     }
 );
 
@@ -55,6 +51,11 @@ var server = app.listen(port, function () {
 });
 
 
+var cmdResponses = {
+  "qn": 'func(req, resp)',
+  "qt": 'func(req, resp)',
+  "qx": 'func(req, resp)'
+};
 
 // 2015-09-10T05:16:40.055688+00:00 app[web.1]: { ToCountry: 'US',
 // 2015-09-10T05:16:40.055691+00:00 app[web.1]:   ToState: 'MN',

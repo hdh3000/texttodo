@@ -8,6 +8,12 @@
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
     "pg": "^4.4.1",
+    "pg-hstore": "^2.3.2",
     "twilio": "*"
+  }, 
+  
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
   }
 }
