@@ -15,20 +15,20 @@ var ip = process.env.IP || "127.0.0.1";
 var parser = bodyParser.urlencoded({ extended: false });
 
 var cmdResponses = {
-  "qn": 'func',
-  "qt": 'func',
-  "qx": 'func'
+  "qn": 'func(req, resp)',
+  "qt": 'func(req, resp)',
+  "qx": 'func(req, resp)'
 };
 
+// var pg = require('pg');
+// var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
+
+// var client = new pg.Client(connectionString);
+// client.connect();
+// var query = client.query('CREATE TABLE items(id SERIAL PRIMARY KEY, text VARCHAR(40) not null, complete BOOLEAN)');
+// query.on('end', function() { client.end(); });
 
 
-// //dealing with cors
-// app.use(function(request, response, next) {
-//   response.header("Access-Control-Allow-Origin", "*");
-//   response.header("Access-Control-Allow-Headers", 
-//     "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
 
 //handling get
 app.get('/', function(req, resp){
@@ -38,10 +38,12 @@ app.get('/', function(req, resp){
 
 //handling posts
 app.post('/', parser, function(req, resp){
+    console.log(req);
+    console.log(req.body);
     var msg = utils.parseMessage(req.body);
-    if(auth.canPost(msg.From, msg.To)) {
-      cmdResponses[msg.cmd](req, resp);
-      }
+    // if(auth.canPost(msg.From, msg.To)) {
+      // cmdResponses[msg.cmd](req, resp);
+      // }
     }
 );
 
@@ -54,15 +56,8 @@ var server = app.listen(port, function () {
 
 
 
-
-
-
-
-
-
-
-// 2015-09-10T05:16:40.055691+00:00 app[web.1]:   ToState: 'MN',
 // 2015-09-10T05:16:40.055688+00:00 app[web.1]: { ToCountry: 'US',
+// 2015-09-10T05:16:40.055691+00:00 app[web.1]:   ToState: 'MN',
 // 2015-09-10T05:16:40.055692+00:00 app[web.1]:   SmsMessageSid: 'SM5a7a6b279cba1542558ed3e0dcd67365',
 // 2015-09-10T05:16:40.055695+00:00 app[web.1]:   ToCity: 'MINNEAPOLIS',
 // 2015-09-10T05:16:40.055694+00:00 app[web.1]:   NumMedia: '0',
@@ -80,22 +75,6 @@ var server = app.listen(port, function () {
 // 2015-09-10T05:16:40.055712+00:00 app[web.1]:   AccountSid: 'AC06255c7484e75adfd67e8f16c75e10b7',
 // 2015-09-10T05:16:40.055713+00:00 app[web.1]:   From: '+16129108918',
 // 2015-09-10T05:16:40.055714+00:00 app[web.1]:   ApiVersion: '2010-04-01' }
-
-
-
-
-
-
-
-  // buffer = "";
-  
-  // req.on('data', function(data){
-  //   buffer = buffer + data.toString();
-  // });
-
-  // req.on('end', function(){
-
-
 
 
 
