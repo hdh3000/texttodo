@@ -1,0 +1,38 @@
+commands on local postgres here: http://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/
+
+
+
+notabbly: 
+If this is your first time installing Postgres with Homebrew, you’ll need to create a database with:
+
+$ initdb /usr/local/var/postgres -E utf8
+
+
+Step 6: Start/Stop Postgres
+
+Once again, I’m copying and pasting the following commands from my Terminal. Note that the second command is specific to the version of Postgres that was installed on my machine. If the version number has changed since I’ve written this tutorial, using the command below won’t work for you, so you should make sure to copy the command from your Terminal output.
+
+1
+2
+$ mkdir -p ~/Library/LaunchAgents
+$ cp /usr/local/Cellar/postgresql/9.2.1/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
+Since we’re using Lunchy, we don’t need to run this third command:
+
+1
+$ launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+
+
+
+http://www.whiteboardcoder.com/2015/05/using-herokus-free-postgres-db-with.html
+
+
+
+
+
+
+
+current thoughts on order of operations:
+1. test functionality
+2. get local post gres db running
+3. get sequalize talking to local
+4. get sequalize talking to heroku

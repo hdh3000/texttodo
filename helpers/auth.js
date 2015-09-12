@@ -4,7 +4,7 @@ var pairs = {
 };
 
 var canPost = function(from, to){
-	var index = (pairs[from]).indexOf(to);
+	var index = pairs[from].indexOf(to);
 	return index !== -1;
 };
 
