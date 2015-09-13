@@ -27,12 +27,12 @@ http://www.whiteboardcoder.com/2015/05/using-herokus-free-postgres-db-with.html
 
 
 
-
+http://reidcarlberg.com/tag/heroku/
 
 
 
 current thoughts on order of operations:
-1. test functionality
+1. test functionality XXX
 2. get local post gres db running
 3. get sequalize talking to local
 4. get sequalize talking to heroku

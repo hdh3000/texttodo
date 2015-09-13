@@ -20,7 +20,6 @@ var comdExec = require('./helpers/cmd-executers');
 //database
 var db = require('./models')
 
-
 // //routing specific commands
 // var cmdRoutes= {
 //   "qn" : cmdExec.qn,
