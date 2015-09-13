@@ -15,7 +15,7 @@ var client = require('twilio')(
 //helpers
 var utils = require('./helpers/utils.js');
 var auth = require('./helpers/auth.js');
-var comdExec = require('./helpers/cmd-executers');
+// var comdExec = require('./helpers/cmd-executers');
 
 //database
 var db = require('./models');
@@ -39,8 +39,10 @@ app.get('/', function(req, resp){
 app.post('/', parser, function(req, resp){
     var msg = utils.parseMessage(req.body);
     if(auth.canPost(msg.From, msg.To)) {
-      resp.send('got it');
-      // cmdRoutes[msg.cmd](req, resp);
+      // resp.send('got it');
+      db.qn(msg,function(req, resp){
+        resp.send('done');
+      });
       }
     }
 );

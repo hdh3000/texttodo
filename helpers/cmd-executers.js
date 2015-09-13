@@ -1,4 +1,4 @@
-var db = require('../models') 
+var db = require('../models');
 
 var qn = function(req, resp) {
   //some code here
