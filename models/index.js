@@ -21,27 +21,31 @@ var help = require("./data-helpers.js");
 //     ]
 //  }
 
-// add a new to do
-var qn = function(msg, callBack){
+
+var newList = function(number) {
   help.newConn(function(db){
-   //code breaks here
-    var todo = help.todoObj(msg);
-    db.collection.update(
-      { "_id": msg.To },
-      { $push : {'items': todo } },
-      function(err, result) {
-        if(err) { throw err ;}
-        console.log("result");
-      }
-    );
+    var todos = db.collection('todos');
+    var list = help.listObj(number);
+    todos.insert(list, function (err, result){
+      if(err) throw err;
+      console.log(result);
+    });
   });
 };
 
-
-
-  //put new to-do in list
-  // if current to do is empty, set to current to-do
-  // call callback on new msg obj
+var qn = function(msg, resp){
+  help.newConn(function(db){
+    var todo = help.todoObj(msg);
+    db.collection('todos').insertOne(todo, 
+      function(err, result){
+        if(err) console.log(err);
+        console.log(result);
+        //some twimil resp writter
+        // resp.send();
+        db.close();
+    });
+  });
+};
 
 var qx = function(callBack){};
 // complete current to do
@@ -65,4 +69,16 @@ exports.qn = qn;
 
 
 
+//function to see all results in the list
+// newList("+17639511825");
+//querying a list
+// help.newConn(function(db){
+//   var cursor = db.collection('todos').find();
+//   cursor.rewind();
+//   cursor.each(function(err, doc) {
+//       if (doc !== null) {
+//          console.dir(doc);
+//       }
+//   });
+// });
 
