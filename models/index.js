@@ -1,9 +1,9 @@
 //mongo configs
 var mongo = require('mongodb');
 var uri = 'mongodb://heroku_j3rmv3fd:cfkmsvas7355h5l3af766qj9ar@ds033828.mongolab.com:33828/heroku_j3rmv3fd';
-
 //helpers
 var help = require("./data-helpers.js");
+var utils = require("../helpers/utils.js");
 
 // reference for model structure:
 // class === "todos";
@@ -28,8 +28,7 @@ var qn = function(msg, resp){
       collection.insertOne(todo, function(err, result) {
           if(err) console.log(err);
           console.log(result);
-          //some twimil resp writter
-          resp.send();
+          resp.send(utils.twimlResp("Added: " + msg.Body));
           db.close();
       });
     });
@@ -38,22 +37,22 @@ var qn = function(msg, resp){
     
 
 //no idea if this works.... needs testing.
-var qx = function(msg, resp){
-  help.newConn(function(db){
-    var collection = db.collection('todos');
-    collection.updateOne(
-      {"current":true, "list": msg.To},
-      { $set : {'current': false} }, 
-      function(err){
-        if (err) throw err;
-        var nextTd = collection.find({"list": msg.To}).sort({"_id": -1}).limit(1)
-        .updateOne({$set : { "current" : true }}, function(err, result){
-          console.log(err);
-          console.log(result);
-        });
-    });
-  });
-};
+// var qx = function(msg, resp){
+//   help.newConn(function(db){
+//     var collection = db.collection('todos');
+//     collection.updateOne(
+//       {"current":true, "list": msg.To},
+//       { $set : {'current': false} }, 
+//       function(err){
+//         if (err) throw err;
+//         var nextTd = collection.find({"list": msg.To}).sort({"_id": -1}).limit(1)
+//         .updateOne({$set : { "current" : true }}, function(err, result){
+//           console.log(err);
+//           console.log(result);
+//         });
+//     });
+//   });
+// };
 // complete current to do
     // retrieve current to do from list
       // mark complete
@@ -72,6 +71,6 @@ var qa = function(callBack){};
 
 
 exports.qn = qn;
-exports.qx = qx;
+// exports.qx = qx;
 
 

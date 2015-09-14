@@ -1,4 +1,8 @@
 var commands = /^qn|^qt|^qx/i; // regexp which contains all command statements
+//Twilio
+var twilio = require('twilio');
+var client = twilio('AC06255c7484e75adfd67e8f16c75e10b7',
+    'ffe28287216b494c5bf75db75c1439aa');
 
 var parseCmd = function(message){
   var cmd = message.match(commands);
@@ -20,4 +24,12 @@ var parseMessage = function (body){
 };
 
 
+var twimlResp = function(text){
+   var resp = new twilio.TwimlResponse();
+   resp.message(text);
+   return resp.toString();
+};
+
+
 exports.parseMessage = parseMessage;
+exports.twimlResp = twimlResp;

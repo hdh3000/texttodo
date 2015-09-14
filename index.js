@@ -7,10 +7,7 @@ var bodyParser = require('body-parser');
 var parser = bodyParser.urlencoded({ extended: false });
 var app = require('express')();
 
-//Twilio
-var client = require('twilio')(
-    'AC06255c7484e75adfd67e8f16c75e10b7',
-    'ffe28287216b494c5bf75db75c1439aa');
+
 
 //helpers
 var utils = require('./helpers/utils.js');
@@ -40,9 +37,7 @@ app.post('/', parser, function(req, resp){
     var msg = utils.parseMessage(req.body);
     if(auth.canPost(msg.From, msg.To)) {
       // resp.send('got it');
-      db.qn(msg,function(req, resp){
-        resp.send('done');
-      });
+      db.qn(msg,resp);
       }
     }
 );

@@ -8,7 +8,7 @@ var newConn = function(callback){
 			console.log(err);
 			throw (err);
 		}
-		callback(db);;
+		callback(db);
 	});
 };
 
