@@ -7,47 +7,53 @@ var help = require("./data-helpers.js");
 
 // reference for model structure:
 // class === "todos";
-
-// {
-//   "_id": "twilio number",
-//   "current to-do" : "{todo object}",
-//   "items": 
-//     [ 
-//       { 
-//         "text"  : "something to complete", 
-//         "created-at" : "some-date", 
-//         "complete" : "true / false"
-//       } 
-//     ]
-//  }
+// { 
+//   "num" : "some number"
+//   "text"  : "something to complete", 
+//   "created-at" : "some-date", 
+//   "current" : "true / false"
+//   "complete" : "true / false"
+// } 
 
 
-var newList = function(number) {
-  help.newConn(function(db){
-    var todos = db.collection('todos');
-    var list = help.listObj(number);
-    todos.insert(list, function (err, result){
-      if(err) throw err;
-      console.log(result);
-    });
-  });
-};
-
+// creates a new to-do
 var qn = function(msg, resp){
   help.newConn(function(db){
+    var collection = db.collection('todos');
     var todo = help.todoObj(msg);
-    db.collection('todos').insertOne(todo, 
-      function(err, result){
-        if(err) console.log(err);
-        console.log(result);
-        //some twimil resp writter
-        // resp.send();
-        db.close();
+    //make sure that there is a current to-do
+    collection.find({"current":true, "list": msg.To}).count(function(err, count){
+      if(err) throw err;
+      if(count === 0) todo.current = true;
+      collection.insertOne(todo, function(err, result) {
+          if(err) console.log(err);
+          console.log(result);
+          //some twimil resp writter
+          resp.send();
+          db.close();
+      });
     });
   });
 };
+    
 
-var qx = function(callBack){};
+//no idea if this works.... needs testing.
+var qx = function(msg, resp){
+  help.newConn(function(db){
+    var collection = db.collection('todos');
+    collection.updateOne(
+      {"current":true, "list": msg.To},
+      { $set : {'current': false} }, 
+      function(err){
+        if (err) throw err;
+        var nextTd = collection.find({"list": msg.To}).sort({"_id": -1}).limit(1)
+        .updateOne({$set : { "current" : true }}, function(err, result){
+          console.log(err);
+          console.log(result);
+        });
+    });
+  });
+};
 // complete current to do
     // retrieve current to do from list
       // mark complete
@@ -66,19 +72,6 @@ var qa = function(callBack){};
 
 
 exports.qn = qn;
+exports.qx = qx;
 
-
-
-//function to see all results in the list
-// newList("+17639511825");
-//querying a list
-// help.newConn(function(db){
-//   var cursor = db.collection('todos').find();
-//   cursor.rewind();
-//   cursor.each(function(err, doc) {
-//       if (doc !== null) {
-//          console.dir(doc);
-//       }
-//   });
-// });
 
