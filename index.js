@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 var parser = bodyParser.urlencoded({ extended: false });
 var app = require('express')();
 
-
-
 //helpers
 var utils = require('./helpers/utils.js');
 var auth = require('./helpers/auth.js');
@@ -17,31 +15,28 @@ var auth = require('./helpers/auth.js');
 //database
 var db = require('./models');
 
-// //routing specific commands
-// var cmdRoutes= {
-//   "qn" : cmdExec.qn,
-//   "qt" : cmdExec.qt,
-//   "qx" : cmdExec.qx
-// };
-
-
-//handling gets
-app.get('/', function(req, resp){
-  resp.write('working on it');
-  resp.end();
-});
-
+//routing specific commands
+var cmdRoutes= {
+  "qn" : db.qn,
+  "qt" : db.qt,
+  "qx" : db.qx
+};
 
 //handling posts
 app.post('/', parser, function(req, resp){
     var msg = utils.parseMessage(req.body);
+    var cmd = msg.cmd;
     if(auth.canPost(msg.From, msg.To)) {
-      // resp.send('got it');
-      db.qn(msg,resp);
+          cmdRoutes[cmd](msg , resp);
       }
     }
 );
 
+//handling gets
+app.get('/', function(req, resp){
+  resp.write('post till i die');
+  resp.end();
+});
 
 //running the server
 var port = process.env.PORT || 5000;

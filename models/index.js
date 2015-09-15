@@ -27,7 +27,6 @@ var qn = function(msg, resp){
       if(count === 0) todo.current = true;
       collection.insertOne(todo, function(err, result) {
           if(err) console.log(err);
-          console.log(result);
           resp.send(utils.twimlResp("Added: " + msg.Body));
           db.close();
       });
@@ -36,41 +35,55 @@ var qn = function(msg, resp){
 };
     
 
-//no idea if this works.... needs testing.
-// var qx = function(msg, resp){
-//   help.newConn(function(db){
-//     var collection = db.collection('todos');
-//     collection.updateOne(
-//       {"current":true, "list": msg.To},
-//       { $set : {'current': false} }, 
-//       function(err){
-//         if (err) throw err;
-//         var nextTd = collection.find({"list": msg.To}).sort({"_id": -1}).limit(1)
-//         .updateOne({$set : { "current" : true }}, function(err, result){
-//           console.log(err);
-//           console.log(result);
-//         });
-//     });
-//   });
-// };
-// complete current to do
-    // retrieve current to do from list
-      // mark complete
-      // insert at end of list
-    // set new current to do
-    // call callback current-to-do obj
+var qx = function(msg, resp){
+  help.newConn(function(db){
+    var collection = db.collection('todos');
+    collection.findAndModify(
+      {"current":true, "list": msg.To},
+      [['_id','asc']],
+      { $set: {current: false, complete:true } },  
+      {}, // options
+      function(err, object) {
+        console.dir(object);
+        if (err) console.log(err.message);
+        collection.findAndModify(
+          { "list": msg.To, complete: false},
+          [['_id','asc']],
+          { $set: {current: true } },  
+          {}, // options
+          function(err, object) {
+            if (err) console.log(err.message);
+            collection.findOne( { current: true },
+              function(err, data){
+                if(err) console.log(err);
+                resp.send(utils.twimlResp("next: " + data.text));
+              });
+        });
+    });
+  });
+};
 
-var qt = function(callBack){};
-// get current to do
-  //retrive current to do
-  // call callback on current to do
+
+var qt = function(msg, resp){
+  help.newConn(function(db){
+  var collection = db.collection('todos');
+  collection.findOne( { current: true },
+    function(err, data){
+      if(err) console.log(err);
+      resp.send(utils.twimlResp("current: " + data.text));
+    });
+  });
+};
 
 
-var qa = function(callBack){};
-// get full list
+var qa = function(callBack){
+  // get full list of active to-dos
+  
+};
 
 
 exports.qn = qn;
-// exports.qx = qx;
+exports.qx = qx;
+exports.qt = qt;
 
 

@@ -13,7 +13,10 @@ var parseCmd = function(message){
 
 var removeCmd = function(string){
   string = string.replace(commands, ''); // removes command text
-  string = string.replace(/^\s/, ''); //removes leading whitespace
+  //if nothing but a command is sent.
+  if(string.length > 0) {
+    string = string.replace(/^\s/, ''); //removes leading whitespace
+  }
   return string;
 };
 
