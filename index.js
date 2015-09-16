@@ -14,6 +14,8 @@ var auth = require('./helpers/auth.js');
 
 //database
 var db = require('./models');
+//postgres messaround
+var postgres = require('./models/postgresExperiment.js');
 
 //routing specific commands
 var cmdRoutes= {
