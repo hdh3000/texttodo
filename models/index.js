@@ -57,6 +57,7 @@ var qx = function(msg, resp){
               function(err, data){
                 if(err) console.log(err);
                 resp.send(utils.twimlResp("next: " + data.text));
+                db.close();
               });
         });
     });
@@ -71,19 +72,26 @@ var qt = function(msg, resp){
     function(err, data){
       if(err) console.log(err);
       resp.send(utils.twimlResp("current: " + data.text));
+      db.close();
     });
   });
 };
 
 
-var qa = function(callBack){
-  // get full list of active to-dos
-  
+var qa = function(msg, resp){
+  help.newConn(function(db){
+    db.collection('todos').find({list:msg.To}).each(function(err, result){
+      console.dir(err);
+      console.dir(result);
+    });
+
+  });
 };
 
 
 exports.qn = qn;
 exports.qx = qx;
 exports.qt = qt;
+exports.qa = qa;
 
 

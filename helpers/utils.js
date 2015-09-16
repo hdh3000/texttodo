@@ -1,4 +1,4 @@
-var commands = /^qn|^qt|^qx/i; // regexp which contains all command statements
+var commands = /^qn|^qt|^qx|^qa/i; // regexp which contains all command statements
 //Twilio
 var twilio = require('twilio');
 var client = twilio('AC06255c7484e75adfd67e8f16c75e10b7',

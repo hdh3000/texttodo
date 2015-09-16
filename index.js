@@ -19,7 +19,8 @@ var db = require('./models');
 var cmdRoutes= {
   "qn" : db.qn,
   "qt" : db.qt,
-  "qx" : db.qx
+  "qx" : db.qx,
+  "qa" : db.qa
 };
 
 //handling posts
